@@ -38,11 +38,11 @@ const Footer = () => {
             </div>
             <div className="sb_footer-links-div">
                 <h4>Contacts Info</h4>           
-                    <p><FaPhoneVolume/>+4933-221-245</p>   
+                    <p><FaPhoneVolume className='icons'/> +4933-221-245</p>   
                                 
-                    <p><SiGmail/>bookmovie@gmail.com</p>
+                    <p><SiGmail className='icons'/> bookmovie@gmail.com</p>
                                    
-                    <p><FaLocationDot/>Malappuram,Kerala</p>
+                    <p><FaLocationDot className='icons'/> Malappuram,Kerala</p>
             </div>
         </div>
             <hr />

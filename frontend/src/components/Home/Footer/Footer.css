@@ -79,6 +79,10 @@ hr {
     max-width: 400px; /* Set a max-width to allow centering */
 }
 
+.sb_footer-links-div p .icons{
+    margin-right: 5px;
+}
+
 @media screen and (max-width: 768px) { /* Fix typo here */
     .sb_footer-heading h1 {
         font-size: 34px;
