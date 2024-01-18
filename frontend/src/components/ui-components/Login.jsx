@@ -32,8 +32,8 @@ const Login = () => {
           <TextField placeholder='Email' type='text' sx={{ marginTop: '20px',width: '100%' }} />
           <TextField placeholder='Password' type='password' sx={{ marginTop: '10px',width: '100%' }} />
           <Button sx={{ marginTop: '10px',width: '100%', background:'rgb(252, 110, 28)',color:'white',':hover':{ color:'black', background:'lightblue'} }}>Login</Button>
-          <Link to='/signup' style={{color: 'black', marginTop: '10px', cursor: 'pointer'}}>New user please register </Link>
-          <Link to='/' style={{color: 'black', marginTop: '10px', cursor: 'pointer'}}>Back to Home page </Link>
+          <Link to='/signup' style={{color: 'red', marginTop: '10px', cursor: 'pointer'}}>New user please register </Link>
+          <Link to='/' style={{color: 'blue', marginTop: '10px', cursor: 'pointer'}}>Back to Home page </Link>
         </Box>
   );
 };

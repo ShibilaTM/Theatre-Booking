@@ -27,8 +27,9 @@ const Navbar = () => {
         {!isMobileMenuOpen && (
           <>
             <p className='dropdown'>Kerala <RiArrowDropDownFill className='dropicon' /></p>
-            <p className='login-dropdown'><Link to={'/login'} style={{textDecoration:'none',color:'white'}}>Login</Link> <RiArrowDropDownFill className='dropicon' /></p>
+            <p className='login-dropdown'><Link to={'/login'} style={{textDecoration:'none',color:'white'}}>Login</Link></p>
             <p className='signup'><Link to={'/signup'} style={{textDecoration:'none',color:'white'}}>Signup</Link></p>
+            <p className='signup'><Link to={'/adminlog'} style={{textDecoration:'none',color:'white'}}>Admin</Link></p>
           </>
         )}
 

@@ -5,7 +5,7 @@ import slide_image_4 from '../../assets/neru.avif';
 import { BsFillStarFill } from "react-icons/bs";
 import './MovieCard.css'
 
-const MovieCard = ({ title, imageUrl, rating, type}) => {
+const UserMovieCard = ({ title, imageUrl, rating, type}) => {
     const navigate = useNavigate();
 
     const movies = [
@@ -46,7 +46,7 @@ const MovieCard = ({ title, imageUrl, rating, type}) => {
             className='moviecard'
             onClick={() => {
                 if (movie) {
-                    navigate('/login');
+                    navigate(`/pages/kerala/movies/${movie.title}`);
                 }
             }}
         >
@@ -69,6 +69,4 @@ const MovieCard = ({ title, imageUrl, rating, type}) => {
     );
 };
 
-export default MovieCard;
-
-
+export default UserMovieCard;

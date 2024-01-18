@@ -41,6 +41,12 @@ input[type='text'] {
     outline: none;
     background: none;
 }
+.left .dropdown{
+    display: flex;
+    align-items: center;
+    margin: 0px 20px;
+    cursor: pointer;
+}
 
 /* Styles for right section */
 .right {
@@ -49,12 +55,7 @@ input[type='text'] {
     justify-content: flex-end;
 }
 
-.dropdown{
-    display: flex;
-    align-items: center;
-    margin: 0px 20px;
-    cursor: pointer;
-}
+
 .login-dropdown {
     display: flex;
     align-items: center;
