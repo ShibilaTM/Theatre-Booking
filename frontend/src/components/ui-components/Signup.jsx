@@ -1,80 +1,79 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios'
+import toast from 'react-hot-toast'
 
 const Signup = () => {
-
-//   const [user,setUser] =useState({
+  const navigate=useNavigate()
+  const [user,setUser] =useState({
      
-//       name:'',
-//       email:'',
-//       password:'',
-//       confirmpassword:''
-//   })
-//   const [errors,setErrors] = useState({
-//     name:'',
-//     email:'',
-//     password:'',
-//     confirmpassword:''
-//   })
-//   const inputHandler= (e)=>{
-//     setUser({...user,
-//       [e.target.name]:e.target.value,
-//     })
-//     setErrors({
-//         ...errors,
-//         [e.target.name]:'',
+      name:'',
+      email:'',
+      password:'',
+      
+  })
+  const [errors,setErrors] = useState({
+    name:'',
+    email:'',
+    password:'',
+    
+  })
+  const inputHandler= (e)=>{
+    setUser({...user,
+      [e.target.name]:e.target.value,
+    })
+    setErrors({
+        ...errors,
+        [e.target.name]:'',
 
-//     })
-//   }
-//   const validateEmail = (email)=>{
-//     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-//   }
-//   const validatePassword = (password)=>{
-//     return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,12}$/.test(password);
-//   }
-//   const validateConfirm = (confirmpassword)=>{
-//     return confirmpassword === user.password
-//   }
+    })
 
-//   const addHandler = async (e) => {
-//     let isValid = true;
-//     const newErrors = {};
+  }
+  const validateEmail = (email)=>{
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+  const validatePassword = (password)=>{
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,12}$/.test(password);
+  }
+
+
+  const addHandler = async (e) => {
+    let isValid = true;
+    const newErrors = {};
   
-//     if (!validateEmail(user.email)) {
-//       newErrors.email = 'Invalid Email address';
-//       isValid = false;
-//     }
+    if (!validateEmail(user.email)) {
+      newErrors.email = 'Invalid Email address';
+      isValid = false;
+    }
   
-//     if (!validatePassword(user.password)) {
-//       newErrors.password = 'Password must be 8-12 characters and include at least one uppercase letter, one lowercase letter, and one digit';
-//       isValid = false;
-//     }
+    if (!validatePassword(user.password)) {
+      newErrors.password = 'Password must be 8-12 characters and include at least one uppercase letter, one lowercase letter, and one digit';
+      isValid = false;
+    }
   
-//     if (!validateConfirm(user.confirmpassword)) {
-//       newErrors.confirmpassword = 'Password does not match';
-//       isValid = false;
-//     }
+    setErrors(newErrors);
   
-//     setErrors(newErrors);
-  
-//     if (isValid) {
+    if (isValid) {
    
   
-//       axios.post('http://127.0.0.1/4000/user/add', user)
-//         .then((res) => {
-//           alert('Successfully registered');
-//         })
-//         .catch((error) => {
-//           console.log('Error in axios request', error);
-//           if (error.response) {
-//             console.error('Server responded with status code:', error.response.status);
-//             alert('Already registered');
-//             console.error('Response data:', error.response.data);
-//           }
-//         });
-//     }
-//   };
+      axios.post('http://127.0.0.1:4000/user/add', user)
+        .then((response) => {
+          //alert('Successfully registered');
+          navigate('/login')
+          toast.success(response.data.message,{position:'top-right'})
+          
+        })
+        .catch((error) => {
+          console.log('Error in axios request', error);
+          if (error.response) {
+            console.error('Server responded with status code:', error.response.status);
+            alert('Already registered');
+            console.error('Response data:', error.response.data);
+          }
+        });
+    }
+  };
   
 
   return (
@@ -107,10 +106,12 @@ const Signup = () => {
       </Typography>
     
       
-      <TextField label="Name" name='name'  variant="outlined" sx={{ width: '100%', marginTop: '20px' }} />
-      <TextField label="Email" name='email'  variant="outlined" sx={{ width: '100%', marginTop: '10px' }} />
-      <TextField label="Password" name='password'  type="password" variant="outlined" sx={{ width: '100%', marginTop: '10px' }} />
-      <Button variant="contained"  sx={{ width: '100%', marginTop: '20px', background: 'rgb(252, 110, 28)', color: 'white', ':hover': { background: 'lightblue',color:'black' } }}>
+      <TextField label="Name" name='name' onChange={inputHandler}  variant="outlined" sx={{ width: '100%', marginTop: '20px' }} />
+      <TextField label="Email" name='email' onChange={inputHandler}  error={!!errors.email}
+          helperText={errors.email}  variant="outlined" sx={{ width: '100%', marginTop: '10px' }} />
+      <TextField label="Password"  error={!!errors.password}
+          helperText={errors.password} name='password' onChange={inputHandler}  type="password" variant="outlined" sx={{ width: '100%', marginTop: '10px' }} />
+      <Button variant="contained" onClick={addHandler} sx={{ width: '100%', marginTop: '20px', background: 'rgb(252, 110, 28)', color: 'white', ':hover': { background: 'lightblue',color:'black' } }}>
         Register
       </Button>
       <Link to='/login' style={{color: 'darkgreen', marginTop: '10px', cursor: 'pointer'}}>Already registered go to login</Link>

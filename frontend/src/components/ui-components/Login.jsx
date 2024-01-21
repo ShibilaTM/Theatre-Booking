@@ -1,8 +1,34 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
-import React from 'react';
-import {Link} from 'react-router-dom'
+import axios from 'axios';
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
+import {Link, useNavigate} from 'react-router-dom'
 
 const Login = () => {
+    const [user,setUser] = useState({
+      email:'',
+      password:''
+    })
+    const navigate = useNavigate()
+    const inputHandler = (e)=>{
+      setUser({...user,
+        [e.target.name]:e.target.value
+      })
+    }
+
+    const addHandler = async (e) => {
+      try {
+        // const { email, password } = user; // Extract only the required fields
+        await axios.post('http://127.0.0.1:4000/user/login', user)
+          .then((response) => {
+            navigate('/user');
+            toast.success(response.data.message, { position: 'top-center' });
+          });
+      } catch (error) {
+        toast.error('Email or password is incorrect', { position: 'top-center' });
+      }
+    };
+    
   return (    
         <Box
           display='flex'
@@ -29,9 +55,9 @@ const Login = () => {
           }}
         >
           <Typography sx={{ fontSize: '40px', color: 'darkred' }}>Login</Typography>
-          <TextField placeholder='Email' type='text' sx={{ marginTop: '20px',width: '100%' }} />
-          <TextField placeholder='Password' type='password' sx={{ marginTop: '10px',width: '100%' }} />
-          <Button sx={{ marginTop: '10px',width: '100%', background:'rgb(252, 110, 28)',color:'white',':hover':{ color:'black', background:'lightblue'} }}>Login</Button>
+          <TextField placeholder='Email' onChange={inputHandler} type='text' sx={{ marginTop: '20px',width: '100%' }} />
+          <TextField placeholder='Password' onChange={inputHandler}  type='password' sx={{ marginTop: '10px',width: '100%' }} />
+          <Button onClick={addHandler} sx={{ marginTop: '10px',width: '100%', background:'rgb(252, 110, 28)',color:'white',':hover':{ color:'black', background:'lightblue'} }}>Login</Button>
           <Link to='/signup' style={{color: 'red', marginTop: '10px', cursor: 'pointer'}}>New user please register </Link>
           <Link to='/' style={{color: 'blue', marginTop: '10px', cursor: 'pointer'}}>Back to Home page </Link>
         </Box>

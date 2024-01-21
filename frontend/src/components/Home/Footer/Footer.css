@@ -24,7 +24,7 @@
 }
 
 a {
-    color: rgb(175, 175, 179);
+    color: white;
     text-decoration: none;
 }
 
@@ -74,7 +74,7 @@ hr {
     text-align: center;
     font-size: 13px;
     line-height: 15px;
-    color: rgb(255, 255, 255);
+    color:  rgb(175, 175, 179);;
     font-weight: 600;
     max-width: 400px; /* Set a max-width to allow centering */
 }
