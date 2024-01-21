@@ -1,7 +1,4 @@
-
-
-import { Button, Grid, TextField, Paper, Avatar } from '@mui/material';
-
+import { Button, Grid, TextField, Paper } from '@mui/material';
 import axios from 'axios';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -27,31 +24,23 @@ const Login = () => {
     try {
       // Check for empty fields
       if (!user.email || !user.password) {
-        // setError('Email and password are required');
+        
         toast.error('Email and password are required',{position:'top-center'})
         return;
       }
   
       const response = await axios.post('http://127.0.0.1:4000/user/login', user);
       if (response.data.message === 'success') {
-        const userEmail = user.email; // Accessing the user's email from the state
-        sessionStorage.setItem('userToken', response.data.token);
-        // During the login process
-          sessionStorage.setItem('userEmail', userEmail);
-
-        localStorage.setItem('userEmail', userEmail); // Store the user's email in local storage
+        const userEmail = user.email; 
         console.log('Successfully logged in as:', userEmail);
-        // alert('success');
-        navigate('/user'); // Redirect to the student dashboard
+        navigate('/user'); 
         toast.success(response.data.message,{position:'top-center'})
       } else {
-        // alert('Email or password is incorrect');
         toast.error('Email or password is incorrect',{position:'top-center'})
         setError(''); // Clear any previous error message
       }
     } catch (error) {
       console.log(error);
-      // setError('Email or password is incorrect');
       toast.error('Email or password is incorrect',{position:'top-center'})
     }
   };
