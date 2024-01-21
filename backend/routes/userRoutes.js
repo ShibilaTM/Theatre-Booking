@@ -30,6 +30,7 @@ router.post('/add', async (req, res, next) => {
 
 //Login
 
+
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -41,27 +42,22 @@ router.post('/login', async (req, res) => {
         const user = await User.findOne({ email });
 
         if (user) {
-            // Compare the provided password with the hashed password stored in the database
-            const isPasswordCorrect = bcrypt.compareSync(password, user.password);
-
-            if (isPasswordCorrect) {
-                // Create a payload with relevant information
-                const payload = { email: user.email, userId: user._id };
-
-                // Sign the payload to generate a JWT token
-                const token = jwt.sign(payload, 'theatreBookingKey'); // Replace 'yourSecretKey' with your actual secret key
-
-                // Return the token in the response
-                return res.status(200).json({ status: 'success', message: 'Login successful', token: token });
+            // Compare the provided password with the password stored in the database
+            if (password === user.password) {
+                let payload = { email: user.email, userId: user._id }; // Include other relevant information in the payload
+                
+                let token = jwt.sign(payload, 'TheaterBookingKey');
+               
+                res.status(200).send({ message: 'success', token: token });
             } else {
-                return res.status(401).json({ status: 'error', message: 'Invalid email or password' });
+                res.status(401).send({ message: 'Invalid password' });
             }
         } else {
-            return res.status(404).json({ status: 'error', message: 'User not found' });
+            res.status(404).send({ message: 'User not found' });
         }
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ status: 'error', message: 'Internal server error' });
+        res.status(500).json({ status: 'error', message: 'Internal server error' });
     }
 });
 

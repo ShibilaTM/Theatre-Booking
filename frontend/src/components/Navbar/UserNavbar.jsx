@@ -23,8 +23,8 @@ const UserNavbar = () => {
         {/* Conditionally render dropdowns based on screen size */}
         {!isMobileMenuOpen && (
           <>
-            <Link to={'/user'} className='signup'>Home</Link>
-            <p className='dropdown'>Kerala <RiArrowDropDownFill className='dropicon'/></p>
+            {/* <Link to={'/user'} className='signup'>Home</Link>
+            <p className='dropdown'>Kerala <RiArrowDropDownFill className='dropicon'/></p> */}
             <Link className='signup' to={'/'}>Logout</Link>
             <Link className='linkstylenone'>
                 <BiUserCircle className='theme_icon1'/>

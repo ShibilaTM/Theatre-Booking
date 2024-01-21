@@ -9,6 +9,7 @@ import Signup from './components/ui-components/Signup';
 import AdminLogin from './components/ui-components/AdminLogin';
 
 
+
 function App() {
   return (
     <div>
@@ -18,6 +19,8 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/adminlog' element={<AdminLogin/>}/>
+       
+
         
       </Routes>
     </div>

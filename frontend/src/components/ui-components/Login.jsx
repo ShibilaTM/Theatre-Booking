@@ -1,66 +1,106 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
+
+
+import { Button, Grid, TextField, Paper, Avatar } from '@mui/material';
+
 import axios from 'axios';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import {Link, useNavigate} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const [user,setUser] = useState({
-      email:'',
-      password:''
-    })
-    const navigate = useNavigate()
-    const inputHandler = (e)=>{
-      setUser({...user,
-        [e.target.name]:e.target.value
-      })
-    }
+  const navigate = useNavigate();
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+  });
+  const [error, setError] = useState('');
 
-    const addHandler = async (e) => {
-      try {
-        // const { email, password } = user; // Extract only the required fields
-        await axios.post('http://127.0.0.1:4000/user/login', user)
-          .then((response) => {
-            navigate('/user');
-            toast.success(response.data.message, { position: 'top-center' });
-          });
-      } catch (error) {
-        toast.error('Email or password is incorrect', { position: 'top-center' });
+  const inputHandler = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+    setError(''); // Clear any previous error message
+  };
+
+  const addHandler = async (e) => {
+    try {
+      // Check for empty fields
+      if (!user.email || !user.password) {
+        // setError('Email and password are required');
+        toast.error('Email and password are required',{position:'top-center'})
+        return;
       }
-    };
-    
-  return (    
-        <Box
-          display='flex'
-          flexDirection={'column'}
-          maxWidth={400}
-          marginTop={10}
-          marginLeft={55}
-          alignItems='center'
-          justifyContent={'center'}
-          padding={3}
-          borderRadius={5}
-          boxShadow={'5px 5px 10px #ccc'}
-          sx={{
-            ':hover': {
-              boxShadow: '10px 10px 20px #ccc',
-            },
-            '@media (max-width: 600px)': {
-              marginLeft: 0,
-              marginTop: 10,
-              padding: 2,
-              fontSize: '14px',
-            },
-            backgroundColor: 'white',
-          }}
-        >
-          <Typography sx={{ fontSize: '40px', color: 'darkred' }}>Login</Typography>
-          <TextField placeholder='Email' onChange={inputHandler} type='text' sx={{ marginTop: '20px',width: '100%' }} />
-          <TextField placeholder='Password' onChange={inputHandler}  type='password' sx={{ marginTop: '10px',width: '100%' }} />
-          <Button onClick={addHandler} sx={{ marginTop: '10px',width: '100%', background:'rgb(252, 110, 28)',color:'white',':hover':{ color:'black', background:'lightblue'} }}>Login</Button>
+  
+      const response = await axios.post('http://127.0.0.1:4000/user/login', user);
+      if (response.data.message === 'success') {
+        const userEmail = user.email; // Accessing the user's email from the state
+        sessionStorage.setItem('userToken', response.data.token);
+        // During the login process
+          sessionStorage.setItem('userEmail', userEmail);
+
+        localStorage.setItem('userEmail', userEmail); // Store the user's email in local storage
+        console.log('Successfully logged in as:', userEmail);
+        // alert('success');
+        navigate('/user'); // Redirect to the student dashboard
+        toast.success(response.data.message,{position:'top-center'})
+      } else {
+        // alert('Email or password is incorrect');
+        toast.error('Email or password is incorrect',{position:'top-center'})
+        setError(''); // Clear any previous error message
+      }
+    } catch (error) {
+      console.log(error);
+      // setError('Email or password is incorrect');
+      toast.error('Email or password is incorrect',{position:'top-center'})
+    }
+  };
+
+
+  const paperStyle = { padding: 20, width: '100%', maxWidth: 400, margin: '20px auto' };
+  const avatarStyle = { backgroundColor: '#005A92' };
+  const buttonStyle = { margin: '15px 0',backgroundColor:"rgb(252, 110, 28)" ,color:'white'};
+
+  return (
+    <Grid container justifyContent="center">
+      <Paper style={paperStyle}>
+        <Grid container direction="column" alignItems="center" spacing={2}>
+          <Grid item>
+          
+          </Grid>
+          <Grid item>
+            <h1 sx={{ color: 'purple' }}>Login</h1>
+          </Grid>
+          <Grid item xs={12} sm={12} md={12}>
+            <TextField variant="outlined" label="email" name="email" onChange={inputHandler} fullWidth />
+          </Grid>
+          <Grid item xs={12} sm={12} md={12}>
+            <TextField
+              variant="outlined"
+              label="Password"
+              name="password"
+              type="password"
+              onChange={inputHandler}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={12} md={12}>
+            <Button
+              variant="contained"
+              color="secondary"
+              style={buttonStyle}
+              sx={{ width: '100%' }}
+              onClick={addHandler}
+              fullWidth
+            >
+              Login
+            </Button>
+          </Grid>
           <Link to='/signup' style={{color: 'red', marginTop: '10px', cursor: 'pointer'}}>New user please register </Link>
           <Link to='/' style={{color: 'blue', marginTop: '10px', cursor: 'pointer'}}>Back to Home page </Link>
-        </Box>
+        </Grid>
+      </Paper>
+    </Grid>
   );
 };
 
