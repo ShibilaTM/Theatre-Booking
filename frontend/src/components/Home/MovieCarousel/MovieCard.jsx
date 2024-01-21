@@ -42,6 +42,7 @@ const MovieCard = ({ title, imageUrl, rating, type}) => {
     const movie = movies.find(movie => movie.title === title);
 
     return (
+       
         <div
             className='moviecard'
             onClick={() => {
@@ -66,6 +67,7 @@ const MovieCard = ({ title, imageUrl, rating, type}) => {
                 </p>
             </div>
         </div>
+      
     );
 };
 

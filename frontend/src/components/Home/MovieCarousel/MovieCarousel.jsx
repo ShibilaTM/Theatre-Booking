@@ -68,6 +68,8 @@ const MovieCarousel = () => {
     ];
 
     return (
+        <div className='moviecard-container'>
+        <h1 className='moviecard-title'>Recommended Movies</h1>
         <div className='sliderout'>
             <Swiper
                 slidesPerView={1}
@@ -104,6 +106,7 @@ const MovieCarousel = () => {
                     </div>
                 ))}
             </Swiper>
+        </div>
         </div>
     );
 };

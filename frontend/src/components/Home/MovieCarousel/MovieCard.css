@@ -10,6 +10,20 @@
     position: relative;
     cursor: pointer;
 }
+.moviecard-container {
+    margin-top: 40px;
+    text-align: center;
+    /* margin-bottom: 20px; */
+}
+
+.moviecard-title {
+    font-size: 25px;
+    font-weight: bold;
+    font-weight: 1000;
+    /* margin-bottom: 10px; */
+    color: rgb(180, 6, 6);
+
+}
 
 .moviecard .movieimg {
     object-fit: contain;
