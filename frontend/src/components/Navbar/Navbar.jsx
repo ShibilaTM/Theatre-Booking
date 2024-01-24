@@ -6,7 +6,7 @@ import './Navbar.css';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
 
   return (
     <nav>
@@ -19,19 +19,11 @@ const Navbar = () => {
       </div>
 
       <div className='right'>
-        {/* Render mobile menu icon */}
-        <div className='mobile-menu-icon' onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
-          ☰
-        </div>
-        {/* Conditionally render dropdowns based on screen size */}
-        {!isMobileMenuOpen && (
-          <>
-            <p className='dropdown'>Kerala <RiArrowDropDownFill className='dropicon' /></p>
+  
             <p className='login-dropdown'><Link to={'/login'} style={{textDecoration:'none',color:'white'}}>Login</Link></p>
             <p className='signup'><Link to={'/signup'} style={{textDecoration:'none',color:'white'}}>Signup</Link></p>
             <p className='signup'><Link to={'/adminlog'} style={{textDecoration:'none',color:'white'}}>Admin</Link></p>
-          </>
-        )}
+         
 
         
       </div>

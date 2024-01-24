@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -7,64 +7,24 @@ import slide_image_1 from '../../assets/image1.jpg';
 import slide_image_4 from '../../assets/neru.avif';
 import UserMovieCard from './UserMovieCard';
 import './UserMovieCard'
+import axios from 'axios';
 const UseMovieCarousel = () => {
 
-    const movies=[
-        {
-            title: "Ozler",
-            imageUrl: slide_image_1,
-            _id: '3',
-            rating: '8.5',
-            type: 'investigation thriller'
-        },
-        {
-            title: "Neru",
-            imageUrl: slide_image_4,
-            _id: '4',
-            rating: '8.5',
-            type: 'Court drama'
-        },
-        {
-            title: "Ozler",
-            imageUrl: slide_image_1,
-            _id: '3',
-            rating: '8.5',
-            type: 'investigation thriller'
-        },
-        {
-            title: "Neru",
-            imageUrl: slide_image_4,
-            _id: '4',
-            rating: '8.5',
-            type: 'Court drama'
-        },        {
-            title: "Ozler",
-            imageUrl: slide_image_1,
-            _id: '3',
-            rating: '8.5',
-            type: 'investigation thriller'
-        },
-        {
-            title: "Neru",
-            imageUrl: slide_image_4,
-            _id: '4',
-            rating: '8.5',
-            type: 'Court drama'
-        },        {
-            title: "Ozler",
-            imageUrl: slide_image_1,
-            _id: '3',
-            rating: '8.5',
-            type: 'investigation thriller'
-        },
-        {
-            title: "Neru",
-            imageUrl: slide_image_4,
-            _id: '4',
-            rating: '8.5',
-            type: 'Court drama'
-        },
-    ];
+    const [movies, setMovies] = useState([]);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('http://127.0.0.1:4000/page/latestget');
+          console.log('Received data from backend:', response.data);
+          setMovies(response.data);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+  
+      fetchData();
+    }, []);
 
     return (
         <div className='moviecard-container'>

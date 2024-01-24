@@ -19,6 +19,9 @@ app.use('/user',userRoutes)
 const upcomingMovie = require('./routes/upMovieRoutes')
 app.use('/upcoming',upcomingMovie)
 
+const moviePage = require('./routes/moviePageRoutes')
+app.use('/page',moviePage)
+
 
 app.listen(PORT,()=>{
     console.log(`server is listening on ${PORT}`)

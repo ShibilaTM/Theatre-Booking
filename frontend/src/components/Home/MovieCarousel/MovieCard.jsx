@@ -1,76 +1,77 @@
 import React from 'react';
+import { BsFillStarFill } from 'react-icons/bs';
+import './MovieCard.css';
 import { useNavigate } from 'react-router-dom';
-import slide_image_1 from '../../assets/image1.jpg';
-import slide_image_4 from '../../assets/neru.avif';
-import { BsFillStarFill } from "react-icons/bs";
-import './MovieCard.css'
 
-const MovieCard = ({ title, imageUrl, rating, type}) => {
-    const navigate = useNavigate();
+const MovieCard = ({ imageUrl, rating, title, genre }) => {
+    const navigate =  useNavigate()
+  return (
+    <div
+    className='moviecard'
+    onClick={()=>{
+        navigate('/login')
+    }
 
-    const movies = [
-        {
-            title: "Ozler",
-            imageUrl: slide_image_1,
-            _id: '1',
-            rating: '8.5',
-            type: 'investigation thriller'
-        },
-        {
-            title: "Neru",
-            imageUrl: slide_image_4,
-            _id: '2',
-            rating: '8.5',
-            type: 'Court drama'
-        },
-               {
-            title: "Ozler",
-            imageUrl: slide_image_1,
-            _id: '1',
-            rating: '8.5',
-            type: 'investigation thriller'
-        },
-        {
-            title: "Neru",
-            imageUrl: slide_image_4,
-            _id: '2',
-            rating: '8.5',
-            type: 'Court drama'
-        },
-    ];
-
-    const movie = movies.find(movie => movie.title === title);
-
-    return (
-       
-        <div
-            className='moviecard'
-            onClick={() => {
-                if (movie) {
-                    navigate('/login');
-                }
-            }}
-        >
-           
-           <div className='movieimg' style={{ backgroundImage: `url(${movie.imageUrl})` }}>
-                <p className='rating'>
-                    <BsFillStarFill className='star' />&nbsp;&nbsp;
-                    {movie.rating}/10
-                </p>
-            </div>
-            <div className="details">
-                <p className='title'>
-                    {movie.title}
-                </p>
-                <p className='type'>
-                    {movie.type}
-                </p>
-            </div>
-        </div>
-      
-    );
+    }   
+>
+      <div className='movieimg' style={{ backgroundImage: `url(${imageUrl})` }}>
+        <p className='rating'>
+          <BsFillStarFill className='star' />&nbsp;&nbsp;
+          {rating}/10
+        </p>
+      </div>
+      <div className='details'>
+        <p className='title'>{title}</p>
+        <p className='type'>{genre}</p>
+      </div>
+    </div>
+  );
 };
 
 export default MovieCard;
+
+
+
+
+
+
+// import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+
+// const MovieCard = () => {
+//   const [cardData, setData] = useState([]);
+
+//   useEffect(() => {
+//     axios.get('http://127.0.0.1:4000/page/latestget').then((res) => {
+//       setData(res.data); // Set the entire array as the new state
+//       console.log(res.data);
+//     });
+//   }, []);
+
+//   return (
+//     <div style={{ margin: '7%' }}>
+//       <Grid container spacing={2}>
+//         {cardData.map((val, i) => (
+//           <Grid item key={i} xs={12} sm={6} md={4}>
+//             <Card sx={{ maxWidth: 1000 }}>
+//               <CardMedia sx={{ height: 140 }} image={val.imageUrl} rating={val.rating} />
+//               <CardContent>
+//                 <Typography gutterBottom variant="h5" component="div">
+//                   {val.title}
+//                 </Typography>
+//                 <Typography variant="body2" color="text.secondary">
+//                   {val.genre}
+//                 </Typography>
+//               </CardContent>
+//             </Card>
+//           </Grid>
+//         ))}
+//       </Grid>
+//     </div>
+//   );
+// };
+
+// export default MovieCard;
 
 
