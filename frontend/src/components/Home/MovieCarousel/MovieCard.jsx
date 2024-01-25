@@ -21,7 +21,7 @@ const MovieCard = ({ imageUrl, rating, title, genre }) => {
         </p>
       </div>
       <div className='details'>
-        <p className='title'>{title}</p>
+        <p className='title'><b>{title}</b></p>
         <p className='type'>{genre}</p>
       </div>
     </div>

@@ -7,16 +7,31 @@ const latestMovie = require('../model/LatestmovieSchema')
 router.use(cors())
 
 //To add the latest movie to home pages
-router.post('/latestadd',async(req,res)=>{
+// router.post('/latestadd',async(req,res)=>{
+//     try {
+//         const data = req.body
+//         const newLatestMovie = await latestMovie(data)
+//         const savedMovie = await newLatestMovie.save()
+//         res.status(200).json({savedMovie })
+//     } catch (error) {
+//         res.status(400).json({ error });
+//     }
+// })
+
+router.post('/latestadd', async (req, res) => {
     try {
-        const data = req.body
-        const newLatestMovie = await latestMovie(data)
-        const savedMovie = await newLatestMovie.save()
-        res.status(200).json({savedMovie })
+        const data = req.body;
+        const newLatestMovie = await latestMovie(data);
+        const savedMovie = await newLatestMovie.save();
+
+        // Fetch the latest movies with sorting by the creation date in descending order
+        const latestMovies = await latestMovie.find().sort({ createdAt: -1 });
+
+        res.status(200).json({ latestMovies });
     } catch (error) {
         res.status(400).json({ error });
     }
-})
+});
 
 //To get the latest movies
 router.get('/latestget',async(req,res)=>{
@@ -28,13 +43,12 @@ router.get('/latestget',async(req,res)=>{
     }
 })
 
+
 //Posting the details of movie page
 router.post('/createmovie', async (req, res) => {
     try {
         const {title,description,potraitImgUrl,landScapeImgUrl,rating,genre,languages,type,duration,releasedate} = req.body
-        // if (typeof category !== 'string') {
-        //     return res.status(400).json({ error: 'Category must be a string' });
-        // }
+      
         const newMovie = new movieModel({title,description,potraitImgUrl,landScapeImgUrl,rating,genre,languages,type,duration,releasedate})
         const savedData= await newMovie.save()
         res.status(200).json({savedData})
@@ -44,29 +58,7 @@ router.post('/createmovie', async (req, res) => {
     }
 });
 
-// //To add cast
-// router.post('/addcelebtomovie',async(req,res)=>{
-//     try{
-//     const {movieId,celebType,celebName,celebRole,celebImage}=req.body
-//     const movie = await movieModel.findById(movieId)
-//     if(!movie){
-//         return res.status(404).json({message:"Movie not found"})
-//     }
-//     const newCeleb ={
-//         celebType,
-//         celebName,
-//         celebRole,
-//         celebImage
-//     }
-//     if (celebType==="cast"){
-//         movie.cast.push(newCeleb)
-//     }
-//     await movie.save();
-//     res.status(200).json({message:"Celeb addaed successfully"})
-// }catch(error){
-//     res.status(400).json({ error });
-// }
-// })
+
 // To add cast
 router.post('/addcelebtomovie', async (req, res) => {
     try {
@@ -116,19 +108,19 @@ router.get('/movies',async(req,res)=>{
     }
 })
 
-router.get('/movies/:id',async(req,res)=>{
+router.get('/movies/:id', async (req, res) => {
     try {
-        const movieId = req.params.movieId
+        const movieId = req.params.id;  // Fix the parameter name
         const movie = await movieModel.findById(movieId)
-        if(!movie){
-            res.status(404).json({message:"Movie not found"})
+        if (!movie) {
+            return res.status(404).json({ message: "Movie not found" });  // Add return here
         }
-        res.status(200).json({message:"Movie retrieved successfully"})
+        res.status(200).json(movie);
     } catch (error) {
         res.status(400).json({ error });
     }
-
 })
+
 
 
 
