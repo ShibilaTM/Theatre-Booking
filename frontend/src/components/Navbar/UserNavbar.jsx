@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import logo from '../assets/newlogo.PNG';
 import { BiSearch, BiUserCircle } from "react-icons/bi";
-import { RiArrowDropDownFill } from "react-icons/ri";
 import {Link} from 'react-router-dom'
 const UserNavbar = () => {
     
@@ -16,7 +15,7 @@ const UserNavbar = () => {
     </div>
     
     <div className='right'>
-   
+            <Link className='signup' to={'/user'}>Home</Link>
             <Link className='signup' to={'/'}>Logout</Link>
             <Link className='linkstylenone'>
                 <BiUserCircle className='theme_icon1'/>

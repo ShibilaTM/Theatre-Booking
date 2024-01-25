@@ -22,13 +22,13 @@ const moviePageSchema = new Schema({
         type: String,
         required: true
     },
-    category: {
-        type: [String],
-        required: true
-    },
     languages: {
         type: [String], // Define languages as an array of strings
         required: true
+    },
+    type:{
+        type: String,
+        required: true 
     },
     duration: {
         type: String,
@@ -49,6 +49,7 @@ const moviePageSchema = new Schema({
         celebRole:String,
         celebImage:String
     }]
+
 });
 
 const moviePage = mongoose.model('moviepage', moviePageSchema);
