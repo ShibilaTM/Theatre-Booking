@@ -131,50 +131,47 @@ const MoviePage = () => {
           <p>{description}</p>
   
           {
-                            cast.length>0 &&
-                            <div className='circlecardslider'>
-                                <div className='line'></div>
+                cast.length > 0 && (
+                    <div className='circlecardslider'>
+                        <div className='line'></div>
 
-                                <h1>Cast</h1>
-                                <Swiper
-                                    slidesPerView={1}
-                                    spaceBetween={1}
-                                    pagination={{
-                                        clickable: true,
-                                    }}
-                                    breakpoints={{
-                                        '@0.00': {
-                                            slidesPerView: 1,
-                                            spaceBetween: 2,
-                                        },
-                                        '@0.75': {
-                                            slidesPerView: 2,
-                                            spaceBetween: 2,
-                                        },
-                                        '@1.00': {
-                                            slidesPerView: 3,
-                                            spaceBetween: 2,
-                                        },
-                                        '@1.50': {
-                                            slidesPerView: 6,
-                                            spaceBetween: 2,
-                                        },
-                                    }}
-                                   
-                                    className="mySwiper"
-                                >
-                                    {
-                                      cast.map((cast, index) => {
-                                            return (
-                                                <SwiperSlide key={index}>
-                                                    <CelebCard {...cast} />
-                                                </SwiperSlide>
-                                            )
-                                        })
-                                    }
-                                </Swiper>
-                            </div>
-                        }
+                        <h1>Cast</h1>
+                        <Swiper
+                            slidesPerView={1}
+                            spaceBetween={1}
+                            pagination={{
+                                clickable: true,
+                            }}
+                            breakpoints={{
+                                '@0.00': {
+                                    slidesPerView: 1,
+                                    spaceBetween: 2,
+                                },
+                                '@0.75': {
+                                    slidesPerView: 2,
+                                    spaceBetween: 2,
+                                },
+                                '@1.00': {
+                                    slidesPerView: 3,
+                                    spaceBetween: 2,
+                                },
+                                '@1.50': {
+                                    slidesPerView: 6,
+                                    spaceBetween: 2,
+                                },
+                            }}
+                            className="mySwiper"
+                        >
+                            {cast.map((celeb, index) => (
+                                <SwiperSlide key={index}>
+                                    <CelebCard {...celeb} />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    </div>
+                )
+}
+
                         <div className='line'></div>
                       
                         < UseMovieCarousel/>
