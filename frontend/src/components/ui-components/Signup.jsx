@@ -114,7 +114,7 @@ const Signup = () => {
       <Button variant="contained" onClick={addHandler} sx={{ width: '100%', marginTop: '20px', background: 'rgb(252, 110, 28)', color: 'white', ':hover': { background: 'lightblue',color:'black' } }}>
         Register
       </Button>
-      <Link to='/login' style={{color: 'darkgreen', marginTop: '10px', cursor: 'pointer'}}>Already registered go to login</Link>
+      <p style={{marginTop:'10px'}}>Already registered  <Link to='/login' style={{color: 'purple', marginTop: '10px', cursor: 'pointer',textDecoration:'underline'}}>Login</Link></p>
     </Box>
   );
 };

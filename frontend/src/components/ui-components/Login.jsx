@@ -50,6 +50,7 @@ const Login = () => {
   const avatarStyle = { backgroundColor: '#005A92' };
   const buttonStyle = { margin: '15px 0',backgroundColor:"rgb(252, 110, 28)" ,color:'white'};
 
+
   return (
     <Grid container justifyContent="center">
       <Paper style={paperStyle}>
@@ -85,8 +86,9 @@ const Login = () => {
               Login
             </Button>
           </Grid>
-          <Link to='/signup' style={{color: 'red', marginTop: '10px', cursor: 'pointer'}}>New user please register </Link>
-          <Link to='/' style={{color: 'blue', marginTop: '10px', cursor: 'pointer'}}>Back to Home page </Link>
+         
+          <p>Don't have an account?<Link to='/signup' style={{color:'purple', marginTop: '10px', cursor: 'pointer',textDecoration:'underline'}}>Register</Link></p>
+          <Link to='/' style={{color: 'blue', marginTop: '10px', cursor: 'pointer',textDecoration:'underline'}}>Back to Home page </Link>
         </Grid>
       </Paper>
     </Grid>

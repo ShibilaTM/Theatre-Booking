@@ -48,7 +48,32 @@ const moviePageSchema = new Schema({
         celebName:String,
         celebRole:String,
         celebImage:String
+    }],
+    screens:[{
+        name: String,
+        screenType:String     
+    }],
+    movieSchedules:[{
+        showTime:String,
+        showDate:Date,
+        seats:[{
+            row:String,           
+            col:Number,
+            seat_id: String,    
+            price:Number,
+        }],   
+    }],
+    bookTickiets:[{
+        totalPrice:Number, 
+        numberofTickets:Number,
+        paymentId:String,
+        paymentType:String,
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'userdata', // Reference to the User model
+        }
     }]
+ 
 
 });
 

@@ -65,6 +65,16 @@ const MoviePage = () => {
     cast,
   } = selectedMovie;
 
+  // const handleBookTickets = () => {
+  //   navigate('/buytickets', {
+  //     state: {
+  //       title,
+  //       languages,
+  //       genre: genreToShow,
+  //     },
+  //   });
+  // };
+
   return (
     <>
    
@@ -116,9 +126,11 @@ const MoviePage = () => {
                       {releasedate}
                     </span>
                     </p>
-                    <Link to={'/buytickets'} className='linkstylenone'>
-                      <button className='bookbtn'>Book Tickets</button>
+                    <Link to={`/buytickets/${selectedMovie._id}`} className='linkstylenone'>
+                        <button className='bookbtn'>Book Tickets</button>
                     </Link>
+
+                    {/* <button onClick={handleBookTickets} className='bookbtn'>Book Tickets</button> */}
               </div>
             </div>  
               <div className='right'>

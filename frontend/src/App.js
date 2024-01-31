@@ -8,6 +8,8 @@ import Login from './components/ui-components/Login';
 import Signup from './components/ui-components/Signup';
 import AdminLogin from './components/ui-components/AdminLogin';
 import MoviePageFinal from './Pages/MoviePageFinal';
+import BuyTicketPage from './Pages/BuyTickets/BuyTicketPage';
+import Seat from './Pages/BuyTickets/Seat';
 
 
 
@@ -21,6 +23,8 @@ function App() {
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/adminlog' element={<AdminLogin/>}/>
         <Route path="/movie/:title" element={<UserMain child={<MoviePageFinal/>} />}/> 
+        <Route path="/buytickets/:id" element={<UserMain child={<BuyTicketPage/>} />}/> 
+        <Route path="/buytickets/:id/screen" element={<UserMain child={<Seat/>} />}/>
        
 
         

@@ -1,0 +1,87 @@
+.buytickets .head{
+    background-color:rgb(97, 94, 94);
+    padding: 20px;
+}
+.buytickets{
+    background-color: rgb(228, 228, 228);
+    min-height: 100vh;
+    width: 100%;
+}
+.buytickets .s1{
+    background-color: white;
+}
+.buytickets .s1 .head h1{
+    color: white;
+    font-size: 35px;
+    font-weight: 600;
+}
+.buytickets .s1 .head h4{
+    color: rgb(19, 18, 18);
+    font-size: 16px;
+    font-weight: 600; 
+    margin-top: 10px; 
+}
+
+.buytickets .s1 .head h5{
+    color: rgb(214, 204, 204);
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 10px;
+    border: 1px solid gray;
+    padding: 5px 20px;
+    border-radius: 25px;
+    width: fit-content;
+}
+
+.buytickets .screens{
+    width: 90%;
+    margin: 20px auto;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.buytickets  .screens .screen{
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px;
+    padding: 10px;
+    /* border-radius: 10px; */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.buytickets  .screens .screen .btn1{
+    background-color: rgb(252, 110, 28);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    /* margin-right: 10px;
+    margin-top: 10px; */
+    text-decoration: none;
+}
+.buytickets .screens .screen .screen-info {
+    display: flex;
+    flex-direction: column;  /* Display name and screenType in a column */
+}
+
+.buytickets .screens .screen h2,
+.buytickets .screens .screen h3 {
+    margin: 0;  /* Remove default margin for better spacing */
+}
+
+.buytickets .screens .screen:last-child{
+    border-bottom: none;
+}
+.buytickets  .screens .screen h2{
+    font-size: 20px;
+    font-weight: 600;
+}
+.buytickets .screens .screen h3{
+    font-size: 15px;
+    font-weight: 600;
+}

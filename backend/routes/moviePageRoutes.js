@@ -1,4 +1,5 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
@@ -96,6 +97,150 @@ router.post('/addcelebtomovie', async (req, res) => {
     }
 });
 
+//To create the screen
+router.post('/screen',async(req,res)=>{
+    try {
+        const {movieId , screens} = req.body
+        if (!movieId) {
+            return res.status(400).json({ message: "Missing movieId in request body" });
+        }
+        const movie = await movieModel.findById(movieId);
+        
+        if (!movie) {
+            return res.status(404).json({ message: "Movie not found" });
+        }
+        if (!screens || !Array.isArray(screens)) {
+            return res.status(400).json({ message: "Invalid or missing screen array in request body" });
+        }
+        const newScreen = screens.map(({ name,screenType }) => ({
+          name,
+          screenType
+        }));
+        movie.screens.push(...newScreen);
+        await movie.save();
+
+        return res.status(200).json({ message: "screens added successfully" });
+    } catch (error) {
+        console.error("Error adding screens to movie:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+})
+
+//Movie Schedules
+router.post('/addmoviescheduletoscreen', async (req, res) => {
+    try {
+        const { movieId, screenId, movieSchedules } = req.body;
+
+        if (!screenId) {
+            return res.status(400).json({ message: "Missing screenId in request body" });
+        }
+
+        // Find the movie by ID
+        const movie = await movieModel.findById(movieId);
+
+        if (!movie) {
+            return res.status(404).json({ message: "Movie not found" });
+        }
+
+        // Find the screen within the "screens" array in the movie document
+        const screen = movie.screens.find((s) => s._id.toString() === screenId);
+
+        if (!screen) {
+            return res.status(404).json({ message: `Screen with ID ${screenId} not found` });
+        }
+
+        if (!movieSchedules || !Array.isArray(movieSchedules)) {
+            return res.status(400).json({ message: "Invalid or missing movieSchedules array in request body" });
+        }
+
+        const newMovieSchedule = movieSchedules.map(({ showTime, showDate, seats }) => ({
+            showTime,
+            showDate,
+            seats
+        }));
+
+        movie.movieSchedules.push(...newMovieSchedule);
+        await movie.save();
+
+        return res.status(200).json({ message: "Movie schedules added successfully" });
+    } catch (error) {
+        console.error("Error adding movie schedules to movie:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+
+
+//Buy tickets routes
+
+// router.post('/buytickets', async (req, res) => {
+//     try {
+//         const { movieId, bookMovie } = req.body;
+
+//         if (!movieId) {
+//             return res.status(400).json({ message: "Missing movieId in request body" });
+//         }
+
+//         const movie = await movieModel.findById(movieId);
+
+//         if (!movie) {
+//             return res.status(404).json({ message: "Movie not found" });
+//         }
+
+//         if (!bookMovie || !Array.isArray(bookMovie)) {
+//             return res.status(400).json({ message: "Invalid or missing cast array in request body" });
+//         }
+
+//         // Assuming all celebrities are of type "cast"
+//         const newBooking = bookMovie.map(({ showTime, showDate,screens, seats , availability,totalPrice,numberofTickets,userId }) => ({
+//                 showTime,
+//                 showDate,
+//                 screens,
+//                 seats: seats.map(seat => ({
+//                     row: seat.row,
+//                     col: seat.col,
+//                     seat_id: seat.seat_id,
+//                     price: seat.price
+//                 })),
+//                 availability,
+//                 totalPrice,
+//                 numberofTickets,
+//                 userId,
+//         }));
+
+//         movie.bookMovie.push(...newBooking);
+//         await movie.save();
+
+//         return res.status(200).json({ message: "tickets buyed successfully" });
+//     } catch (error) {
+//         console.error("Error in booking movie:", error);
+//         res.status(500).json({ error: "Internal server error" });
+//     }
+// });
+
+//To get the screens
+router.get('/screen/:movieId', async (req, res) => {
+    try {
+      const { movieId } = req.params;
+  
+      if (!movieId) {
+        return res.status(400).json({ message: "Missing movieId in request params" });
+      }
+  
+      const movie = await movieModel.findById(movieId);
+  
+      if (!movie) {
+        return res.status(404).json({ message: "Movie not found" });
+      }
+  
+      const screens = movie.screens || [];
+  
+      return res.status(200).json({ screens });
+    } catch (error) {
+      console.error("Error fetching screens:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
 
 //To get the details of movie 
 
@@ -108,18 +253,28 @@ router.get('/movies',async(req,res)=>{
     }
 })
 
-router.get('/movies/:id', async (req, res) => {
+//To get one movie
+router.get('/movie/:id', async (req, res) => {
     try {
-        const movieId = req.params.id;  // Fix the parameter name
-        const movie = await movieModel.findById(movieId)
-        if (!movie) {
-            return res.status(404).json({ message: "Movie not found" });  // Add return here
+        const movieId = req.params.id;
+
+        if (!mongoose.Types.ObjectId.isValid(movieId)) {
+            return res.status(400).json({ message: "Invalid movie ID format" });
         }
+
+        const movie = await movieModel.findById(movieId);
+
+        if (!movie) {
+            return res.status(404).json({ message: "Movie not found" });
+        }
+
         res.status(200).json(movie);
     } catch (error) {
-        res.status(400).json({ error });
+        console.error("Error fetching movie:", error);
+        res.status(500).json({ error: error.message || "Internal server error" });
     }
-})
+});
+
 
 
 
