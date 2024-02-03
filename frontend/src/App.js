@@ -10,6 +10,8 @@ import AdminLogin from './components/ui-components/AdminLogin';
 import MoviePageFinal from './Pages/MoviePageFinal';
 import BuyTicketPage from './Pages/BuyTickets/BuyTicketPage';
 import Seat from './Pages/BuyTickets/Seat';
+import AdminHome from './Admin/AdminHome/AdminHome';
+import AdminMain from './Admin/Sidebar/AdminMain';
 
 
 
@@ -17,6 +19,7 @@ function App() {
   return (
     <div>
       <Routes>
+        {/* User Routes */}
         <Route path='/' element={<Main child={<Home />} />}/>
         <Route path='/user' element={<UserMain child={<UserHome />} />}/>
         <Route path='/login' element={<Login/>}/>
@@ -26,7 +29,9 @@ function App() {
         <Route path="/buytickets/:id" element={<UserMain child={<BuyTicketPage/>} />}/> 
         <Route path="/buytickets/:id/screen" element={<UserMain child={<Seat/>} />}/>
        
-
+        {/* Admin Routes */}
+        <Route path="/admindashboard" element={<AdminMain child={<AdminHome/>} />}/>
+        
         
       </Routes>
     </div>
